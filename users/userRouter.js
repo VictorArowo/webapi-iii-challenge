@@ -11,8 +11,8 @@ router.post('/', validateUser, (req, res) => {
     .then(user => {
       return res.status(201).json(user);
     })
-    .catch(() => {
-      res.status(500).json({ message: 'The users could not be created' });
+    .catch(err => {
+      res.status(500).json({ message: 'Something went wrong' + err.message });
     });
 });
 
@@ -51,12 +51,7 @@ router.get('/:id/posts', validateUserId, (req, res) => {
   userDb
     .getUserPosts(req.user.id)
     .then(posts => {
-      if (posts) {
-        return res.status(200).json(posts);
-      }
-      return res
-        .status(404)
-        .json({ message: `No posts by that user could be found` });
+      return res.status(200).json(posts);
     })
     .catch(() => {
       return res
@@ -69,10 +64,7 @@ router.delete('/:id', validateUserId, (req, res) => {
   userDb
     .remove(req.params.id)
     .then(user => {
-      if (user) {
-        return res.status(200).json(req.user);
-      }
-      return res.status(500).json({ message: 'The user could not be deleted' });
+      return res.status(200).json(user);
     })
     .catch(() => {
       return res.status(500).json({ message: 'The user could not be deleted' });
@@ -85,10 +77,7 @@ router.put('/:id', validateUserId, (req, res) => {
   userDb
     .update(req.params.id, { name })
     .then(user => {
-      if (user) {
-        return res.status(200).json(user);
-      }
-      return res.status(500).json({ message: 'The user could not be updated' });
+      return res.status(200).json(user);
     })
     .catch(() => {
       return res.status(500).json({ message: 'The user could not be updated' });
