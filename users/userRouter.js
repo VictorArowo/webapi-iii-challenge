@@ -25,8 +25,8 @@ router.post('/:id/posts', validateUserId, validatePost, (req, res) => {
     .then(post => {
       return res.status(201).json(post);
     })
-    .catch(() => {
-      res.status(500).json({ message: 'The post could not be created' });
+    .catch(err => {
+      res.status(500).json({ message: 'Something went wrong' + err.message });
     });
 });
 
@@ -36,10 +36,8 @@ router.get('/', (req, res) => {
     .then(users => {
       return res.status(200).json(users);
     })
-    .catch(() => {
-      return res
-        .status(500)
-        .json({ message: 'The users could not be retrieved' });
+    .catch(err => {
+      res.status(500).json({ message: 'Something went wrong' + err.message });
     });
 });
 
@@ -53,10 +51,8 @@ router.get('/:id/posts', validateUserId, (req, res) => {
     .then(posts => {
       return res.status(200).json(posts);
     })
-    .catch(() => {
-      return res
-        .status(500)
-        .json({ message: 'The posts could not be retrieved' });
+    .catch(err => {
+      res.status(500).json({ message: 'Something went wrong' + err.message });
     });
 });
 
@@ -66,8 +62,8 @@ router.delete('/:id', validateUserId, (req, res) => {
     .then(user => {
       return res.status(200).json(user);
     })
-    .catch(() => {
-      return res.status(500).json({ message: 'The user could not be deleted' });
+    .catch(err => {
+      res.status(500).json({ message: 'Something went wrong' + err.message });
     });
 });
 
@@ -79,8 +75,8 @@ router.put('/:id', validateUserId, (req, res) => {
     .then(user => {
       return res.status(200).json(user);
     })
-    .catch(() => {
-      return res.status(500).json({ message: 'The user could not be updated' });
+    .catch(err => {
+      res.status(500).json({ message: 'Something went wrong' + err.message });
     });
 });
 
